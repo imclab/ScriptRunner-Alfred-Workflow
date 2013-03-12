@@ -8,7 +8,7 @@ So I created quick workflow that allows you to add scripts to list with **add sc
 
 ---
 
-At the moment workflow supports python, perl, osascritpt and ruby but new languages can be easily added by adding extension and name of interpreter to extension_interpreter dictionary in scriptsrunner.py.   
+At the moment workflow supports python, perl, osascritpt and ruby but new languages can be easily added by adding extension and name of interpreter to extension_interpreter dictionary in scriptsrunner.py (also you should add new accepted file type to **add script** File Action).   
 
 
 
