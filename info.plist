@@ -6,18 +6,9 @@
 	<string></string>
 	<key>connections</key>
 	<dict>
+		<key>182017B3-45C2-4A07-BBF6-E29DF9C81289</key>
+		<array/>
 		<key>3F448481-D855-4BED-9EAD-2AE58E15CF1F</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>F1718D4B-3917-462A-A9C1-FDB947D400A9</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-		</array>
-		<key>72A967C4-C688-47DF-AFA3-55F458000769</key>
 		<array/>
 		<key>74DDB74A-C5BC-4CF1-9BD8-55D9A0882115</key>
 		<array>
@@ -55,11 +46,11 @@
 			</dict>
 			<dict>
 				<key>destinationuid</key>
-				<string>72A967C4-C688-47DF-AFA3-55F458000769</string>
+				<string>182017B3-45C2-4A07-BBF6-E29DF9C81289</string>
 				<key>modifiers</key>
 				<integer>8388608</integer>
 				<key>modifiersubtext</key>
-				<string>Remove script</string>
+				<string>Remove from ScriptRunner</string>
 			</dict>
 		</array>
 		<key>925CB20D-473F-48B5-8495-5E28B323DD02</key>
@@ -114,10 +105,22 @@ add("""{query}""")</string>
 			<string>52FE3173-0627-4E34-9F8A-0342823A5792</string>
 		</dict>
 		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>from scriptsrunner import remove
+query = """{query}"""
+query = query.partition(' ')[::2][1].strip()[1:-1]
+remove(query)</string>
+				<key>type</key>
+				<integer>3</integer>
+			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.largetype</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>F1718D4B-3917-462A-A9C1-FDB947D400A9</string>
+			<string>182017B3-45C2-4A07-BBF6-E29DF9C81289</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -135,24 +138,6 @@ print s.check_output("""{query}""", shell=True)
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
 			<string>925CB20D-473F-48B5-8495-5E28B323DD02</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>escaping</key>
-				<integer>0</integer>
-				<key>script</key>
-				<string>from scriptsrunner import remove
-q = """{query}"""
-q = ' '.join(q.split(' ')[1:]).strip()
-remove(q)</string>
-				<key>type</key>
-				<integer>3</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>72A967C4-C688-47DF-AFA3-55F458000769</string>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -207,12 +192,13 @@ print scriptsrunner.xml("""{query}""")</string>
 				<key>filetypes</key>
 				<array>
 					<string>com.apple.applescript.text</string>
+					<string>public.folder</string>
 					<string>public.perl-script</string>
 					<string>public.python-script</string>
 					<string>public.ruby-script</string>
 				</array>
 				<key>name</key>
-				<string>add script</string>
+				<string>Add script to ScriptRunner</string>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.trigger.action</string>
@@ -268,6 +254,11 @@ print s.check_output("""{query}""", shell=True)
 	<string></string>
 	<key>uidata</key>
 	<dict>
+		<key>182017B3-45C2-4A07-BBF6-E29DF9C81289</key>
+		<dict>
+			<key>ypos</key>
+			<real>460</real>
+		</dict>
 		<key>3F448481-D855-4BED-9EAD-2AE58E15CF1F</key>
 		<dict>
 			<key>ypos</key>
@@ -276,17 +267,12 @@ print s.check_output("""{query}""", shell=True)
 		<key>52FE3173-0627-4E34-9F8A-0342823A5792</key>
 		<dict>
 			<key>ypos</key>
-			<real>630</real>
+			<real>620</real>
 		</dict>
 		<key>600A83B5-0ABE-411A-BA49-DDC50B23B9F7</key>
 		<dict>
 			<key>ypos</key>
 			<real>340</real>
-		</dict>
-		<key>72A967C4-C688-47DF-AFA3-55F458000769</key>
-		<dict>
-			<key>ypos</key>
-			<real>510</real>
 		</dict>
 		<key>74DDB74A-C5BC-4CF1-9BD8-55D9A0882115</key>
 		<dict>
@@ -306,12 +292,7 @@ print s.check_output("""{query}""", shell=True)
 		<key>CADB9680-30D3-43C0-B6A0-5D02BEE7599E</key>
 		<dict>
 			<key>ypos</key>
-			<real>630</real>
-		</dict>
-		<key>F1718D4B-3917-462A-A9C1-FDB947D400A9</key>
-		<dict>
-			<key>ypos</key>
-			<real>260</real>
+			<real>620</real>
 		</dict>
 		<key>FB19931D-4D08-4A98-8846-CF4C5FAE1884</key>
 		<dict>

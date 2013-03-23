@@ -9,13 +9,14 @@ import os
 
 # you can customize icons of scripts, to do that put
 # png image with the same name as script in direcorty icons_path
-icons_path = 'icons/'
+icons_path = '/Users/bvsc/Dropbox/Projects/ikony/scripts/'
 
 extension_interpreter = {
     'py': 'python',
     'rb': 'ruby',
     'pl': 'perl',
     'applescript': 'osascript',
+    'dir': 'open',  # special rule for folders
 }
 
 dir_path = '~/Library/Caches/com.runningwithcrayons.Alfred-2/Workflow Data/ScriptRunner/'
@@ -63,7 +64,7 @@ def clear():
 
 def xml(arg=''):
     splitted = arg.split(' ')
-    path_filter = splitted[0]
+    query = splitted[0]
     args = ' '.join(splitted[1:])
     items = set()
     with open(full_path, 'r') as f:
@@ -76,14 +77,28 @@ def xml(arg=''):
     al = AlfredItemsList()
     # add selected files
     for item in items:
-        if path_filter in item:
-            al.append(
-                arg=interpreter_of_item(item) + ' ' + item + ' ' + args,  # full command to run
-                title=item.split('/')[-1],
-                subtitle=interpreter_of_item(item) + ' ' + item + ' ' + args,
-                icon=icon(item),
-                uid=item
-            )
+        extension = item.split('.')[-1].lower()
+        if os.path.isdir(item):
+            extension = 'dir'
+        if extension in extension_interpreter:
+            if extension == 'dir':
+                for script_item in [os.path.join(item, script_file) for script_file in os.listdir(item)]:
+                    sc_extension = script_item.split('.')[-1].lower()
+                    if sc_extension in extension_interpreter:
+                        al = add_item(al, script_item, query, args, sc_extension)
+            al = add_item(al, item, query, args, extension)
+    return al
+
+
+def add_item(al, item, query, args, extension):
+    if query in item:
+        al.append(
+            arg=extension_interpreter[extension] + ' &quot;' + item + '&quot; ' + args,  # full command to run
+            title=item.split('/')[-1],
+            subtitle=extension_interpreter[extension] + ' ' + item + ' ' + args,
+            icon=icon(item),
+            uid=item
+        )
     return al
 
 
@@ -97,10 +112,12 @@ def to_list():
         return f.read().split('\t')
 
 
-import os.path
+# import os.path
 
 
 def icon(path):
+    if os.path.isdir(path):
+        return 'script_folder'
     name = os.path.splitext(os.path.basename(path))[0]
     eventual = icons_path + name + '.png'
     if os.path.exists(eventual):
